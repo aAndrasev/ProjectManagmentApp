@@ -9,6 +9,7 @@ namespace ProjectManagmentApp.Application.Interfaces
 {
     public interface IProjectService
     {
-        ProjectDTO GetProject();
+        Task<List<ProjectDTO>> GetProjectsAsync();
+        Task<ProjectDTO> GetProjectAsync(int id);
     }
 }

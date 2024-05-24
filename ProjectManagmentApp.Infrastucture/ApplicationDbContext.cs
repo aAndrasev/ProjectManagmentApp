@@ -13,6 +13,13 @@ namespace ProjectManagmentApp.Infrastucture
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectClient> ProjectClients { get; set; }
+        public DbSet<ProjectResearcher> ProjectResearchers { get; set; }
+        public DbSet<ProjectStatus> ProjectStatus { get; set; }
+        public DbSet<Researcher> Researchers { get; set; }
+        public DbSet<ResearcherRole> ResearcherRoles { get; set; }
+        public DbSet<Phase> Phases { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -33,6 +40,10 @@ namespace ProjectManagmentApp.Infrastucture
             );
             
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ProjectClient>()
+                        .HasKey(x => new { x.ProjectId,x.ClientId });
+            modelBuilder.Entity<ProjectResearcher>()
+                        .HasKey(x => new { x.ProjectId, x.ResearcherId });
         }
     }
 }

@@ -6,6 +6,7 @@ using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Application.Interfaces.Repositories;
 using ProjectManagmentApp.Domain.Entities;
 using ProjectManagmentApp.Infrastucture;
+using ProjectManagmentApp.Infrastucture.Mapping_profiles;
 using ProjectManagmentApp.Infrastucture.Repositories;
 using ProjectManagmentApp.Infrastucture.Services;
 using System;
@@ -50,7 +51,7 @@ builder.Services.AddAuthentication(options =>
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
             });
-
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(

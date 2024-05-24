@@ -1,6 +1,10 @@
-﻿using ProjectManagmentApp.Application.Dtos;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using ProjectManagmentApp.Application.Dtos;
 using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Application.Interfaces.Repositories;
+using ProjectManagmentApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +16,31 @@ namespace ProjectManagmentApp.Infrastucture.Services
     public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly IMapper _mapper;
 
-        public ProjectService(IProjectRepository projectRepository)
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper)
         {
             _projectRepository = projectRepository;
+            _mapper = mapper;
         }
 
-        public ProjectDTO GetProject()
+        public async Task<List<ProjectDTO>> GetProjectsAsync()
         {
-            _projectRepository.GetById(2);
-            throw new NotImplementedException();
+            return await _projectRepository
+                 .GetAllAsync()
+                 .ProjectTo<ProjectDTO>(_mapper.ConfigurationProvider)
+                 .ToListAsync();
+        }
+
+        public async Task<ProjectDTO> GetProjectAsync(int id)
+        {
+            var project = await _projectRepository.GetByIdAsync(id);
+            if (project == null)
+            {
+                return null;
+            }
+            
+            return _mapper.Map<ProjectDTO>(project);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace ProjectManagmentApp.Application.Interfaces.Repositories
 {
     public interface IProjectRepository
     {
-        ProjectDTO GetById(int id);
+        IQueryable<Project> GetAllAsync();
+        Task<Project?> GetByIdAsync(int id);
     }
 }
