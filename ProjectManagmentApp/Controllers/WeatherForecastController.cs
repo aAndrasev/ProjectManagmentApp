@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagmentApp.Application.Interfaces;
 
 namespace ProjectManagmentApp.Controllers
 {
@@ -13,18 +12,15 @@ namespace ProjectManagmentApp.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IProjectService _projectService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IProjectService projectService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _projectService = projectService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
-            _projectService.GetProject();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
