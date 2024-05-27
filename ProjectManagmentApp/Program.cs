@@ -62,6 +62,14 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IResearcherRepository, ResearcherRepository>();
+builder.Services.AddScoped<IResearcherService, ResearcherService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IPhaseRepository, PhaseRepository>();
+builder.Services.AddScoped<IPhaseService, PhaseService>();
 //builder.Services.AddScoped<ITelephoneRepository, TelephoneRepository>();
 
 //builder.Services.AddAutoMapper(typeof(MappingProfile));
