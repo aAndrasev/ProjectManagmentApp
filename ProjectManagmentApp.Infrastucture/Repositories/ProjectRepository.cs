@@ -21,9 +21,11 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
             _context = applicationDbContext;
         }
 
+
+        //******* CRUD METHODS ******//
         public IQueryable<Project> GetAllAsync()
         {
-            return _context.Projects.OrderBy(x=> x.Name);
+            return _context.Projects.OrderBy(x => x.Name);
         }
         public async Task<Project?> GetByIdAsync(int id)
         {
@@ -32,7 +34,7 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
 
         public async Task<Project> CreateAsync(Project project)
         {
-             _context.Projects.Add(project);
+            _context.Projects.Add(project);
             await _context.SaveChangesAsync();
             return project;
         }
@@ -58,7 +60,7 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
                 var project = await _context.Projects.FindAsync(id);
                 if (project == null)
                 {
-                    return null; 
+                    return null;
                 }
 
                 _context.Projects.Remove(project);
@@ -67,5 +69,8 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
                 return project;
             }
         }
+        //*************//
+
+
     }
 }

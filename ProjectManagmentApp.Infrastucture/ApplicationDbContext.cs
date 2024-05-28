@@ -13,6 +13,7 @@ namespace ProjectManagmentApp.Infrastucture
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Client> Clients { get; set; }
         public DbSet<ProjectClient> ProjectClients { get; set; }
         public DbSet<ProjectResearcher> ProjectResearchers { get; set; }
         public DbSet<ProjectStatus> ProjectStatus { get; set; }

@@ -21,6 +21,10 @@ namespace ProjectManagmentApp.API.Controllers
             _projectService = projectService;
         }
 
+
+
+        //******* CRUD METHODS *********//
+
         [HttpGet]
         public async Task<IActionResult> GetProjects()
         {
@@ -40,42 +44,34 @@ namespace ProjectManagmentApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProject(Project project)
+        public async Task<IActionResult> CreateProject(ProjectDTO projectDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var createdProjectDto = await _projectService.CreateProjectAsync(project);
-            if (createdProjectDto == null)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to create project");
-            }
+            var createdProjectDto = await _projectService.CreateProjectAsync(projectDTO);
 
-            return CreatedAtAction(nameof(GetProject), new { id = createdProjectDto.Id }, createdProjectDto);
+            return Ok(createdProjectDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject(int id, Project project)
+        public async Task<IActionResult> UpdateProject(int id, ProjectDTO projectDTO)
         {
-            if (id != project.Id)
-            {
-                return BadRequest();
-            }
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-            try
+
+            var updatedProjectDto = await _projectService.UpdateProjectAsync(id, projectDTO);
+
+            if (updatedProjectDto == null)
             {
-                await _projectService.UpdateProjectAsync(project);
+                return NotFound();
             }
-            catch (DBConcurrencyException)
-            {
-                return BadRequest();
-            }
-            return Ok(project);
+
+            return Ok(updatedProjectDto);
         }
 
         [HttpDelete("{id}")]
@@ -89,6 +85,9 @@ namespace ProjectManagmentApp.API.Controllers
 
             return NoContent();
         }
+        //****************//
+
+
     }
 }
 

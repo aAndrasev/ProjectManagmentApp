@@ -24,6 +24,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
             _mapper = mapper;
         }
 
+        //***** CRUD METHODS *****//
         public async Task<List<ProjectDTO>> GetProjectsAsync()
         {
             return await _projectRepository
@@ -43,16 +44,23 @@ namespace ProjectManagmentApp.Infrastucture.Services
             return _mapper.Map<ProjectDTO>(project);
         }
 
-        public async Task<ProjectDTO> CreateProjectAsync(Project project)
+        public async Task<ProjectDTO> CreateProjectAsync(ProjectDTO projectDTO)
         {
-            await _projectRepository.CreateAsync(project);
-            return _mapper.Map<ProjectDTO>(project);
+            var project = _mapper.Map<Project>(projectDTO);
+            var createdProject = await _projectRepository.CreateAsync(project);
+            return _mapper.Map<ProjectDTO>(createdProject);
         }
 
-        public async Task<ProjectDTO> UpdateProjectAsync(Project project)
+        public async Task<ProjectDTO> UpdateProjectAsync(int id, ProjectDTO projectDTO)
         {
-            var updatedProject = await _projectRepository.UpdateAsync(project);
+            var existingProject = await _projectRepository.GetByIdAsync(id);
+            if (existingProject == null)
+            {
+                return null;
+            }
 
+            _mapper.Map(projectDTO, existingProject);
+            var updatedProject = await _projectRepository.UpdateAsync(existingProject);
 
             return _mapper.Map<ProjectDTO>(updatedProject);
         }
@@ -67,5 +75,8 @@ namespace ProjectManagmentApp.Infrastucture.Services
 
             return _mapper.Map<ProjectDTO>(deletedProject);
         }
+        //**********//
+
+
     }
 }

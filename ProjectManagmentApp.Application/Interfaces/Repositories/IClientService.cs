@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectManagmentApp.Application.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace ProjectManagmentApp.Application.Interfaces.Repositories
 {
     public interface IClientService
     {
+        Task<List<ClientDTO>> GetClientsAsync();
+        Task<ClientDTO> GetClientAsync(int id);
+        Task<ClientDTO> CreateClientAsync(ClientDTO clientDTO);
+        Task<ClientDTO> UpdateClientAsync(int id, ClientDTO clientDTO);
+        Task<ClientDTO> DeleteClientAsync(int id);
     }
 }

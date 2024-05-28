@@ -9,6 +9,7 @@ namespace ProjectManagmentApp.Domain.Entities
 {
     public class Project
     {
+        [Key]
         public int Id { get; set; }
 
         [StringLength(255)]

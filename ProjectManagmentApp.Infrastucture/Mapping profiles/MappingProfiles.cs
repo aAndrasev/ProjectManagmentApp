@@ -14,7 +14,15 @@ namespace ProjectManagmentApp.Infrastucture.Mapping_profiles
         public MappingProfiles()
         {
             CreateMap<Project, ProjectDTO>();
-            
+            CreateMap<ProjectDTO, Project>();
+            CreateMap<Researcher, ResearcherDTO>();
+            CreateMap<ResearcherDTO, Researcher>();
+            CreateMap<Client, ClientDTO>();
+            CreateMap<ClientDTO, Client>();
+            CreateMap<Phase, PhaseDTO>();
+            CreateMap<PhaseDTO, Phase>();
+            CreateMap<Activity, ActivityDTO>();
+            CreateMap<ActivityDTO, Activity>();
         }
     }
 }
