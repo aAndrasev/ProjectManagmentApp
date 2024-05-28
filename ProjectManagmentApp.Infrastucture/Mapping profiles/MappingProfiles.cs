@@ -14,6 +14,7 @@ namespace ProjectManagmentApp.Infrastucture.Mapping_profiles
         public MappingProfiles()
         {
             CreateMap<Project, ProjectDTO>();
+            
         }
     }
 }

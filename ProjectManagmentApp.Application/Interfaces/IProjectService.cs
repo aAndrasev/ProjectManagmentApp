@@ -1,4 +1,5 @@
 ﻿using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace ProjectManagmentApp.Application.Interfaces
     {
         Task<List<ProjectDTO>> GetProjectsAsync();
         Task<ProjectDTO> GetProjectAsync(int id);
+        Task<ProjectDTO> CreateProjectAsync(Project project);
+        Task<ProjectDTO> UpdateProjectAsync(Project project);
+        Task<ProjectDTO> DeleteProjectAsync(int id);
     }
 }

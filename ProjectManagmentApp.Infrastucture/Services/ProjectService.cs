@@ -39,8 +39,33 @@ namespace ProjectManagmentApp.Infrastucture.Services
             {
                 return null;
             }
-            
+
             return _mapper.Map<ProjectDTO>(project);
+        }
+
+        public async Task<ProjectDTO> CreateProjectAsync(Project project)
+        {
+            await _projectRepository.CreateAsync(project);
+            return _mapper.Map<ProjectDTO>(project);
+        }
+
+        public async Task<ProjectDTO> UpdateProjectAsync(Project project)
+        {
+            var updatedProject = await _projectRepository.UpdateAsync(project);
+
+
+            return _mapper.Map<ProjectDTO>(updatedProject);
+        }
+
+        public async Task<ProjectDTO> DeleteProjectAsync(int id)
+        {
+            var deletedProject = await _projectRepository.DeleteAsync(id);
+            if (deletedProject == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<ProjectDTO>(deletedProject);
         }
     }
 }
