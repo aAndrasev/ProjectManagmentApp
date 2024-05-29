@@ -9,6 +9,7 @@ namespace ProjectManagmentApp.Application.Dtos
 {
     public class ProjectDTO
     {
+        public int Id { get; set; }
         [StringLength(255)]
         public string Name { get; set; }
 
