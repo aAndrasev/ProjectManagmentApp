@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectManagmentApp.Application.Interfaces.Repositories
+namespace ProjectManagmentApp.Application.Interfaces
 {
     public interface IActivityService
     {
