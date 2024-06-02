@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManagmentApp.Application.Dtos;
 using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
-using ProjectManagmentApp.Domain.Entities;
-using System.Data;
 
 namespace ProjectManagmentApp.API.Controllers
 {

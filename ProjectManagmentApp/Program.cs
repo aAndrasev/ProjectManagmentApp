@@ -9,7 +9,6 @@ using ProjectManagmentApp.Infrastucture;
 using ProjectManagmentApp.Infrastucture.Mapping_profiles;
 using ProjectManagmentApp.Infrastucture.Repositories;
 using ProjectManagmentApp.Infrastucture.Services;
-using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
