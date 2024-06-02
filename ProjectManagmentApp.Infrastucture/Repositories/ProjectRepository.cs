@@ -54,20 +54,18 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
             return project;
         }
 
-        public async Task<Project> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
+
+            var project = await _context.Projects.FindAsync(id);
+            if (project == null)
             {
-                var project = await _context.Projects.FindAsync(id);
-                if (project == null)
-                {
-                    return null;
-                }
-
-                _context.Projects.Remove(project);
-                await _context.SaveChangesAsync();
-
-                return project;
+                return;
             }
+
+            _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
+
         }
         //*************//
 

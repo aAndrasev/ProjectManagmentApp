@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjectManagmentApp.Domain.Entities
 {
@@ -26,6 +21,8 @@ namespace ProjectManagmentApp.Domain.Entities
         public DateTime PlannedStartDate { get; set; }
 
         public DateTime PlannedEndDate { get; set; }
+        public ProjectStatus ProjectStatus { get; set; }
+        public int ProjectStatusId { get; set; }
         public virtual ICollection<Researcher> Researchers { get; set; }
         public virtual ICollection<Client> Clients { get; set; }
 

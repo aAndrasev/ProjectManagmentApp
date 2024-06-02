@@ -9,5 +9,6 @@ namespace ProjectManagmentApp.Domain.Entities
         
         [StringLength(20)]
         public string Name { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjectManagmentApp.Application.Dtos
 {
@@ -24,5 +19,7 @@ namespace ProjectManagmentApp.Application.Dtos
         public DateTime PlannedStartDate { get; set; }
 
         public DateTime PlannedEndDate { get; set; }
+        public int ProjectStatusId { get; set; }
+        public string ProjectStatusName { get; set; }
     }
 }

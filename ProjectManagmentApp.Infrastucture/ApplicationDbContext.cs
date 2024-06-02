@@ -16,7 +16,7 @@ namespace ProjectManagmentApp.Infrastucture
         public DbSet<Client> Clients { get; set; }
         public DbSet<ProjectClient> ProjectClients { get; set; }
         public DbSet<ProjectResearcher> ProjectResearchers { get; set; }
-        public DbSet<ProjectStatus> ProjectStatus { get; set; }
+        public DbSet<ProjectStatus> ProjectStatuses { get; set; }
         public DbSet<Researcher> Researchers { get; set; }
         public DbSet<ResearcherRole> ResearcherRoles { get; set; }
         public DbSet<Phase> Phases { get; set; }
@@ -27,11 +27,11 @@ namespace ProjectManagmentApp.Infrastucture
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Project>().HasData(
-            new Project() { Id = 1, Name = "SmartHome Automation", Description = "Automate household tasks with IoT.",DateOfCreation = DateTime.Now,PlannedStartDate = DateTime.Now.AddDays(5), PlannedEndDate = DateTime.Now.AddDays(30)},
-            new Project() { Id = 2, Name = "Health Tracker App", Description = "Monitor fitness goals and progress.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(6), PlannedEndDate = DateTime.Now.AddDays(31) },
-            new Project() { Id = 3, Name = "E-commerce Platform Upgrade", Description = "Enhance user experience with new features.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(3), PlannedEndDate = DateTime.Now.AddDays(33) },
-            new Project() { Id = 4, Name = "Data Analysis Tool", Description = "Visualize and analyze large datasets.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(7), PlannedEndDate = DateTime.Now.AddDays(28) },
-            new Project() { Id = 5, Name = "Green Energy Initiative", Description = "Promote renewable energy solutions.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(4), PlannedEndDate = DateTime.Now.AddDays(29) }
+            new Project() { Id = 1, Name = "SmartHome Automation", Description = "Automate household tasks with IoT.",DateOfCreation = DateTime.Now,PlannedStartDate = DateTime.Now.AddDays(5), PlannedEndDate = DateTime.Now.AddDays(30),ProjectStatusId = 1},
+            new Project() { Id = 2, Name = "Health Tracker App", Description = "Monitor fitness goals and progress.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(6), PlannedEndDate = DateTime.Now.AddDays(31), ProjectStatusId = 2 },
+            new Project() { Id = 3, Name = "E-commerce Platform Upgrade", Description = "Enhance user experience with new features.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(3), PlannedEndDate = DateTime.Now.AddDays(33), ProjectStatusId = 2 },
+            new Project() { Id = 4, Name = "Data Analysis Tool", Description = "Visualize and analyze large datasets.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(7), PlannedEndDate = DateTime.Now.AddDays(28), ProjectStatusId = 3 },
+            new Project() { Id = 5, Name = "Green Energy Initiative", Description = "Promote renewable energy solutions.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(4), PlannedEndDate = DateTime.Now.AddDays(29), ProjectStatusId = 4     }
             );
 
             modelBuilder.Entity<Researcher>().HasData(

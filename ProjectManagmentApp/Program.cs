@@ -70,6 +70,8 @@ builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IPhaseRepository, PhaseRepository>();
 builder.Services.AddScoped<IPhaseService, PhaseService>();
+builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
+builder.Services.AddScoped<IProjectStatusService, ProjectStatusService>();
 //builder.Services.AddScoped<ITelephoneRepository, TelephoneRepository>();
 
 //builder.Services.AddAutoMapper(typeof(MappingProfile));

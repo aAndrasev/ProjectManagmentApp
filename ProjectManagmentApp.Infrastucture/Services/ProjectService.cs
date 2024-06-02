@@ -2,14 +2,11 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Application.Interfaces.Repositories;
 using ProjectManagmentApp.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ProjectManagmentApp.Infrastucture.Services
 {
@@ -25,12 +22,22 @@ namespace ProjectManagmentApp.Infrastucture.Services
         }
 
         //***** CRUD METHODS *****//
-        public async Task<List<ProjectDTO>> GetProjectsAsync()
+        public async Task<List<ProjectDTO>> GetProjectsAsync(GetProjectsRequest request)
         {
-            return await _projectRepository
+            var result = _projectRepository
                  .GetAllAsync()
-                 .ProjectTo<ProjectDTO>(_mapper.ConfigurationProvider)
-                 .ToListAsync();
+                 .ProjectTo<ProjectDTO>(_mapper.ConfigurationProvider);
+
+            if (request.ProjectStatusId.HasValue && request.ProjectStatusId != 0)
+            {
+                result = result.Where(x => x.ProjectStatusId == request.ProjectStatusId);
+            }
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                result = result.Where(x => x.Name.Contains(request.SearchTerm));
+            }
+
+            return await result.ToListAsync();
         }
 
         public async Task<ProjectDTO> GetProjectAsync(int id)
@@ -65,15 +72,9 @@ namespace ProjectManagmentApp.Infrastucture.Services
             return _mapper.Map<ProjectDTO>(updatedProject);
         }
 
-        public async Task<ProjectDTO> DeleteProjectAsync(int id)
+        public async Task DeleteProjectAsync(int id)
         {
-            var deletedProject = await _projectRepository.DeleteAsync(id);
-            if (deletedProject == null)
-            {
-                return null;
-            }
-
-            return _mapper.Map<ProjectDTO>(deletedProject);
+            await _projectRepository.DeleteAsync(id);
         }
         //**********//
 

@@ -13,7 +13,9 @@ namespace ProjectManagmentApp.Infrastucture.Mapping_profiles
     {
         public MappingProfiles()
         {
-            CreateMap<Project, ProjectDTO>();
+            CreateMap<Project, ProjectDTO>()
+             .ForMember(dest => dest.ProjectStatusName, opt => opt.MapFrom(src => src.ProjectStatus.Name));
+            
             CreateMap<ProjectDTO, Project>();
             CreateMap<Researcher, ResearcherDTO>();
             CreateMap<ResearcherDTO, Researcher>();
@@ -23,6 +25,8 @@ namespace ProjectManagmentApp.Infrastucture.Mapping_profiles
             CreateMap<PhaseDTO, Phase>();
             CreateMap<Activity, ActivityDTO>();
             CreateMap<ActivityDTO, Activity>();
+            CreateMap<ProjectStatusDTO, ProjectStatus>();
+            CreateMap<ProjectStatus, ProjectStatusDTO>();
         }
     }
 }

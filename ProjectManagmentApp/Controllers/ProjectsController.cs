@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Domain.Entities;
 using System.Data;
@@ -14,21 +15,23 @@ namespace ProjectManagmentApp.API.Controllers
     {
         private readonly ILogger<ProjectsController> _logger;
         private readonly IProjectService _projectService;
+        private readonly IProjectStatusService _projectStatusService;
 
-        public ProjectsController(ILogger<ProjectsController> logger, IProjectService projectService)
+        public ProjectsController(ILogger<ProjectsController> logger, IProjectService projectService, IProjectStatusService projectStatusService)
         {
             _logger = logger;
             _projectService = projectService;
+            _projectStatusService = projectStatusService;
         }
 
 
 
         //******* CRUD METHODS *********//
 
-        [HttpGet]
-        public async Task<IActionResult> GetProjects()
-        {
-            var result = await _projectService.GetProjectsAsync();
+        [HttpPost("GetAll")]
+        public async Task<IActionResult> GetProjects([FromBody] GetProjectsRequest request)
+            {
+            var result = await _projectService.GetProjectsAsync(request);
             return Ok(result);
         }
 
@@ -77,17 +80,17 @@ namespace ProjectManagmentApp.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(int id)
         {
-            var deletedProject = await _projectService.DeleteProjectAsync(id);
-            if (deletedProject == null)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
+            await _projectService.DeleteProjectAsync(id);
+            return Ok();
         }
         //****************//
 
-
+        [HttpGet("GetProjectStatuses")]
+        public async Task<IActionResult> GetProjectStatuses()
+        {
+            var result = await _projectStatusService.GetProjectStatusesAsync();
+            return Ok(result);
+        }
     }
 }
 
