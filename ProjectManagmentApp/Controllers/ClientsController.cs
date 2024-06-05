@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 
 namespace ProjectManagmentApp.API.Controllers
@@ -21,10 +22,10 @@ namespace ProjectManagmentApp.API.Controllers
 
         //******* CRUD METHODS *********//
 
-        [HttpGet]
-        public async Task<IActionResult> GetClients()
+        [HttpPost("GetAll")]
+        public async Task<IActionResult> GetClients(GetClientsRequest request)
         {
-            var result = await _clientService.GetClientsAsync();
+            var result = await _clientService.GetClientsAsync(request);
             return Ok(result);
         }
 

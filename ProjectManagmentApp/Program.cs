@@ -71,9 +71,8 @@ builder.Services.AddScoped<IPhaseRepository, PhaseRepository>();
 builder.Services.AddScoped<IPhaseService, PhaseService>();
 builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
 builder.Services.AddScoped<IProjectStatusService, ProjectStatusService>();
-//builder.Services.AddScoped<ITelephoneRepository, TelephoneRepository>();
-
-//builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IResearcherRoleRepository, ResearcherRoleRepository>();
+builder.Services.AddScoped<IResearcherRoleService, ResearcherRoleService>();
 
 
 var app = builder.Build();

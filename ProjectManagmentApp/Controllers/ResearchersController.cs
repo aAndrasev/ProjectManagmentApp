@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
+using ProjectManagmentApp.Infrastucture.Services;
 
 namespace ProjectManagmentApp.API.Controllers
 {
@@ -10,21 +12,23 @@ namespace ProjectManagmentApp.API.Controllers
     {
         private readonly ILogger<ResearchersController> _logger;
         private readonly IResearcherService _researcherService;
+        private readonly IResearcherRoleService _researcherRoleService;
 
-        public ResearchersController(ILogger<ResearchersController> logger, IResearcherService researcherService)
+        public ResearchersController(ILogger<ResearchersController> logger, IResearcherService researcherService, IResearcherRoleService researcherRoleService)
         {
             _logger = logger;
             _researcherService = researcherService;
+            _researcherRoleService = researcherRoleService;
         }
 
 
 
         //******* CRUD METHODS *********//
 
-        [HttpGet]
-        public async Task<IActionResult> GetResearchers()
+        [HttpPost("GetAll")]
+        public async Task<IActionResult> GetResearchers(GetResearchersRequest request)
         {
-            var result = await _researcherService.GetResearchersAsync();
+            var result = await _researcherService.GetResearchersAsync(request);
             return Ok(result);
         }
 
@@ -83,6 +87,11 @@ namespace ProjectManagmentApp.API.Controllers
         }
         //****************//
 
-
+        [HttpGet("GetResearcherRoles")]
+        public async Task<IActionResult> GetProjectStatuses()
+        {
+            var result = await _researcherRoleService.GetResearcherRolesAsync();
+            return Ok(result);
+        }
     }
 }

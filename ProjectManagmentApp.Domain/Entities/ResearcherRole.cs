@@ -7,5 +7,6 @@ namespace ProjectManagmentApp.Domain.Entities
         [Key]
         public int Id { get; set; }
         public  string Name { get; set; }
+        public virtual ICollection<Researcher> Researchers { get; set; }
     }
 }

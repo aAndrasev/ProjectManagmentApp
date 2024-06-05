@@ -25,7 +25,7 @@ namespace ProjectManagmentApp.API.Controllers
         //******* CRUD METHODS *********//
 
         [HttpPost("GetAll")]
-        public async Task<IActionResult> GetProjects([FromBody] GetProjectsRequest request)
+        public async Task<IActionResult> GetProjects(GetProjectsRequest request)
             {
             var result = await _projectService.GetProjectsAsync(request);
             return Ok(result);

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Application.Interfaces.Repositories;
 using ProjectManagmentApp.Domain.Entities;
@@ -20,12 +22,22 @@ namespace ProjectManagmentApp.Infrastucture.Services
         }
 
         //***** CRUD METHODS *****//
-        public async Task<List<ResearcherDTO>> GetResearchersAsync()
+        public async Task<List<ResearcherDTO>> GetResearchersAsync(GetResearchersRequest request)
         {
-            return await _researcherRepository
+            var result = _researcherRepository
                  .GetAllAsync()
-                 .ProjectTo<ResearcherDTO>(_mapper.ConfigurationProvider)
-                 .ToListAsync();
+                 .ProjectTo<ResearcherDTO>(_mapper.ConfigurationProvider);
+                 
+            if (request.ResearcherRoleId.HasValue && request.ResearcherRoleId != 0)
+            {
+                result = result.Where (x => x.ResearcherRoleId == request.ResearcherRoleId.Value);
+            }
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                result = result.Where(x => x.Name.Contains(request.SearchTerm));
+            }
+
+            return await result.ToListAsync();
         }
 
         public async Task<ResearcherDTO> GetResearcherAsync(int id)

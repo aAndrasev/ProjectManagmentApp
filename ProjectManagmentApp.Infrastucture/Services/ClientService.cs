@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagmentApp.Application.Dtos;
+using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Application.Interfaces.Repositories;
 using ProjectManagmentApp.Domain.Entities;
@@ -20,12 +21,22 @@ namespace ProjectManagmentApp.Infrastucture.Services
         }
 
         //***** CRUD METHODS *****//
-        public async Task<List<ClientDTO>> GetClientsAsync()
+        public async Task<List<ClientDTO>> GetClientsAsync(GetClientsRequest request)
         {
-            return await _clientRepository
+            var result = _clientRepository
                  .GetAllAsync()
-                 .ProjectTo<ClientDTO>(_mapper.ConfigurationProvider)
-                 .ToListAsync();
+                 .ProjectTo<ClientDTO>(_mapper.ConfigurationProvider);
+                
+            if (request.Id.HasValue && request.Id != 0)
+            {
+                result = result.Where(x => x.Id == request.Id);
+            }
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                result = result.Where(x => x.Name.Contains(request.SearchTerm));
+            }
+
+            return await result.ToListAsync();
         }
 
         public async Task<ClientDTO> GetClientAsync(int id)

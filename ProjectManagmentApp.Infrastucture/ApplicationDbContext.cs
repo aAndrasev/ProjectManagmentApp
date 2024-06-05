@@ -21,19 +21,11 @@ namespace ProjectManagmentApp.Infrastucture
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Project>().HasData(
-            new Project() { Id = 1, Name = "SmartHome Automation", Description = "Automate household tasks with IoT.",DateOfCreation = DateTime.Now,PlannedStartDate = DateTime.Now.AddDays(5), PlannedEndDate = DateTime.Now.AddDays(30),ProjectStatusId = 1},
-            new Project() { Id = 2, Name = "Health Tracker App", Description = "Monitor fitness goals and progress.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(6), PlannedEndDate = DateTime.Now.AddDays(31), ProjectStatusId = 2 },
-            new Project() { Id = 3, Name = "E-commerce Platform Upgrade", Description = "Enhance user experience with new features.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(3), PlannedEndDate = DateTime.Now.AddDays(33), ProjectStatusId = 2 },
-            new Project() { Id = 4, Name = "Data Analysis Tool", Description = "Visualize and analyze large datasets.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(7), PlannedEndDate = DateTime.Now.AddDays(28), ProjectStatusId = 3 },
-            new Project() { Id = 5, Name = "Green Energy Initiative", Description = "Promote renewable energy solutions.", DateOfCreation = DateTime.Now, PlannedStartDate = DateTime.Now.AddDays(4), PlannedEndDate = DateTime.Now.AddDays(29), ProjectStatusId = 4     }
-            );
-
-            modelBuilder.Entity<Researcher>().HasData(
-            new Researcher() { Id = 1, Name = "Jhon", LastName = "Smith", Email = "jhon@gmail.com", Title = "", PhoneNumber = 0038163221 },
-            new Researcher() { Id = 2, Name = "Emily", LastName = "Jhonson", Email = "emily@gmail.com", Title = "", PhoneNumber = 0038163451 },
-            new Researcher() { Id = 3, Name = "Michael", LastName = "Williams", Email = "michael@gmail.com", Title = "", PhoneNumber = 0038145321 },
-            new Researcher() { Id = 4, Name = "Sarah", LastName = "Brown", Email = "sarah@gmail.com", Title = "", PhoneNumber = 0038164452 },
-            new Researcher() { Id = 5, Name = "David", LastName = "Jones", Email = "david@gmail.com", Title = "", PhoneNumber = 0038160533 }
+            new Project() { Id = 1, Name = "SmartHome Automation", Description = "Automate household tasks with IoT.",DateOfCreation = DateTime.Now, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(5), PlannedStartDate = DateTime.Now.AddDays(5), PlannedEndDate = DateTime.Now.AddDays(30),ProjectStatusId = 1},
+            new Project() { Id = 2, Name = "Health Tracker App", Description = "Monitor fitness goals and progress.", DateOfCreation = DateTime.Now, StartDate = DateTime.Now.AddDays(3), EndDate = DateTime.Now.AddDays(15), PlannedStartDate = DateTime.Now.AddDays(6), PlannedEndDate = DateTime.Now.AddDays(31), ProjectStatusId = 2 },
+            new Project() { Id = 3, Name = "E-commerce Platform Upgrade", Description = "Enhance user experience with new features.", DateOfCreation = DateTime.Now, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(3), PlannedStartDate = DateTime.Now.AddDays(3), PlannedEndDate = DateTime.Now.AddDays(33), ProjectStatusId = 2 },
+            new Project() { Id = 4, Name = "Data Analysis Tool", Description = "Visualize and analyze large datasets.", DateOfCreation = DateTime.Now, StartDate = DateTime.Now.AddDays(4), EndDate = DateTime.Now.AddDays(14), PlannedStartDate = DateTime.Now.AddDays(7), PlannedEndDate = DateTime.Now.AddDays(28), ProjectStatusId = 3 },
+            new Project() { Id = 5, Name = "Green Energy Initiative", Description = "Promote renewable energy solutions.", DateOfCreation = DateTime.Now, StartDate = DateTime.Now.AddDays(5), EndDate = DateTime.Now.AddDays(17), PlannedStartDate = DateTime.Now.AddDays(4), PlannedEndDate = DateTime.Now.AddDays(29), ProjectStatusId = 4     }
             );
 
             modelBuilder.Entity<ResearcherRole>().HasData(
@@ -43,6 +35,16 @@ namespace ProjectManagmentApp.Infrastucture
             new ResearcherRole() { Id = 4, Name = "Tester" },
             new ResearcherRole() { Id = 5, Name = "Begginer" }
             );
+
+            modelBuilder.Entity<Researcher>().HasData(
+            new Researcher() { Id = 1, Name = "Jhon", LastName = "Smith", Email = "jhon@gmail.com", Title = "", PhoneNumber = 0038163221, ResearcherRoleId = 1 },
+            new Researcher() { Id = 2, Name = "Emily", LastName = "Jhonson", Email = "emily@gmail.com", Title = "", PhoneNumber = 0038163451, ResearcherRoleId = 2 },
+            new Researcher() { Id = 3, Name = "Michael", LastName = "Williams", Email = "michael@gmail.com", Title = "", PhoneNumber = 0038145321, ResearcherRoleId = 3 },
+            new Researcher() { Id = 4, Name = "Sarah", LastName = "Brown", Email = "sarah@gmail.com", Title = "", PhoneNumber = 0038164452 ,ResearcherRoleId = 4 },
+            new Researcher() { Id = 5, Name = "David", LastName = "Jones", Email = "david@gmail.com", Title = "", PhoneNumber = 0038160533, ResearcherRoleId = 5 }
+            );
+
+            
 
             modelBuilder.Entity<Client>().HasData(
             new Client() { Id = 1, Name = "ABC Corporation", Email = "AbcCorp@gmail.com", PhoneNumber = 0021454232, Place = "New York" },
@@ -79,6 +81,12 @@ namespace ProjectManagmentApp.Infrastucture
                         .HasKey(x => new { x.ProjectId, x.ClientId });
             modelBuilder.Entity<ProjectResearcher>()
                         .HasKey(x => new { x.ProjectId, x.ResearcherId });
+
+            modelBuilder.Entity<Researcher>()
+            .HasOne(r => r.ResearcherRole)
+            .WithMany(rr => rr.Researchers)
+            .HasForeignKey(r => r.ResearcherRoleId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
