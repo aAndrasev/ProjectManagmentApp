@@ -33,7 +33,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
             }
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
-                result = result.Where(x => x.Name.Contains(request.SearchTerm));
+                result = result.Where(x => x.Name.Contains(request.SearchTerm) || x.Email.Contains(request.SearchTerm) || x.Place       .Contains(request.SearchTerm));
             }
 
             return await result.ToListAsync();

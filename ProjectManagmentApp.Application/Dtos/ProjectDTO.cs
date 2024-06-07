@@ -4,7 +4,7 @@ namespace ProjectManagmentApp.Application.Dtos
 {
     public class ProjectDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [StringLength(255)]
         public string Name { get; set; }
 
@@ -16,10 +16,10 @@ namespace ProjectManagmentApp.Application.Dtos
 
         public DateTime DateOfCreation { get; set; }
 
-        public DateTime PlannedStartDate { get; set; }
+        public DateTime PlannedStartDate { get; set; }  
 
         public DateTime PlannedEndDate { get; set; }
         public int ProjectStatusId { get; set; }
-        public string ProjectStatusName { get; set; }
+        public string? ProjectStatusName { get; set; }
     }
 }

@@ -22,7 +22,9 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
         }
         public async Task<Project?> GetByIdAsync(int id)
         {
-            return await _context.Projects.FindAsync(id);
+            return await _context.Projects
+                .Include(r => r.ProjectStatus)
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<Project> CreateAsync(Project project)
