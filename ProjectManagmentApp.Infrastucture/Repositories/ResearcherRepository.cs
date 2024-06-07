@@ -22,7 +22,9 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
         }
         public async Task<Researcher?> GetByIdAsync(int id)
         {
-            return await _context.Researchers.FindAsync(id);
+            return await _context.Researchers
+                .Include(r => r.ResearcherRole)
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<Researcher> CreateAsync(Researcher researcher)
