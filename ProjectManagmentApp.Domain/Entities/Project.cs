@@ -25,7 +25,7 @@ namespace ProjectManagmentApp.Domain.Entities
         public int ProjectStatusId { get; set; }
         public virtual ICollection<Researcher> Researchers { get; set; }
         public virtual ICollection<Client> Clients { get; set; }
-
+        public virtual ICollection<Phase> Phases { get; set; }
 
     }
 }

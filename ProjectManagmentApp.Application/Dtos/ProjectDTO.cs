@@ -21,5 +21,6 @@ namespace ProjectManagmentApp.Application.Dtos
         public DateTime PlannedEndDate { get; set; }
         public int ProjectStatusId { get; set; }
         public string? ProjectStatusName { get; set; }
+        public List<PhaseDTO> Phases { get; set; }
     }
 }
