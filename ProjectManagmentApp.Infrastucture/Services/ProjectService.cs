@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ProjectManagmentApp.Application.Dtos;
 using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
@@ -15,12 +16,13 @@ namespace ProjectManagmentApp.Infrastucture.Services
         private readonly IProjectRepository _projectRepository;
         private readonly IPhaseRepository _phaseRepository;
         private readonly IMapper _mapper;
-
+      
         public ProjectService(IProjectRepository projectRepository, IMapper mapper, IPhaseRepository phaseRepository)
         {
             _projectRepository = projectRepository;
             _mapper = mapper;
             _phaseRepository = phaseRepository;
+            
         }
 
         //***** CRUD METHODS *****//
@@ -55,20 +57,39 @@ namespace ProjectManagmentApp.Infrastucture.Services
 
         public async Task<ProjectDTO> CreateProjectAsync(ProjectDTO projectDTO)
         {
-            var project = _mapper.Map<Project>(projectDTO);
-            var createdProject = await _projectRepository.CreateAsync(project);
 
-            foreach (var phase in projectDTO.Phases)
+            try
             {
-                await _phaseRepository.CreateAsync(new Phase
+                var project = new Project
                 {
-                    Description = phase.Description,
-                    Name = phase.Name,
-                    ProjectId = createdProject.Id
-                });
-            }
+                    Name = projectDTO.Name,
+                    Description = projectDTO.Description,
+                    StartDate = projectDTO.StartDate,   
+                    EndDate = projectDTO.EndDate,
+                    DateOfCreation = projectDTO.DateOfCreation,
+                    PlannedStartDate = projectDTO.PlannedStartDate,
+                    PlannedEndDate = projectDTO.PlannedEndDate,
+                    ProjectStatusId = projectDTO.ProjectStatusId
+                };
+                var createdProject = await _projectRepository.CreateAsync(project);
 
-            return _mapper.Map<ProjectDTO>(createdProject);
+                foreach (var phase in projectDTO.Phases)
+                {
+                    await _phaseRepository.CreateAsync(new Phase
+                    {
+                        Description = phase.Description,
+                        Name = phase.Name,
+                        ProjectId = createdProject.Id
+                    });
+                }
+
+                return _mapper.Map<ProjectDTO>(createdProject);
+            }
+            catch (Exception ex)
+            {
+                // Optionally, you can throw a custom exception or rethrow the original exception
+                throw new ApplicationException("An error occurred while creating the project.", ex);
+            }
         }
 
         public async Task<ProjectDTO> UpdateProjectAsync(int id, ProjectDTO projectDTO)
@@ -89,7 +110,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
                 if (phaseExist)
                 {
                     await _phaseRepository.UpdateAsync(phase);
-                    continue;
+                    
                 }
                 else
                 {
