@@ -19,7 +19,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
         private readonly IProjectResearcherRepository _projectResearcherRepository;
         private readonly IProjectClientRepository _projectClientRepository;
         private readonly IMapper _mapper;
-      
+
         public ProjectService(IProjectRepository projectRepository, IMapper mapper, IPhaseRepository phaseRepository, IProjectResearcherRepository projectResearcherRepository, IProjectClientRepository projectClientRepository)
         {
             _projectRepository = projectRepository;
@@ -68,7 +68,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
                 {
                     Name = projectDTO.Name,
                     Description = projectDTO.Description,
-                    StartDate = projectDTO.StartDate,   
+                    StartDate = projectDTO.StartDate,
                     EndDate = projectDTO.EndDate,
                     DateOfCreation = projectDTO.DateOfCreation,
                     PlannedStartDate = projectDTO.PlannedStartDate,
@@ -89,13 +89,26 @@ namespace ProjectManagmentApp.Infrastucture.Services
 
                 foreach (var researcher in projectDTO.ProjectResearchers)
                 {
-                    await _projectResearcherRepository.CreateAsync(new  ProjectResearcher
+                    await _projectResearcherRepository.CreateAsync(new ProjectResearcher
                     {
-                      ResearcherId = researcher.ResearcherId.Value,
-                      ProjectId = project.Id,
-                      StartDate = researcher.StartDate,
-                      EndDate = researcher.EndDate,
-                      ResearcherRoleId = 1 // change this to use researcher.ResearcherRoleId
+                        ResearcherId = researcher.ResearcherId.Value,
+                        ProjectId = project.Id,
+                        StartDate = researcher.StartDate,
+                        EndDate = researcher.EndDate,
+                        ResearcherRoleId = 1 // change this to use researcher.ResearcherRoleId
+                    });
+                }
+
+                foreach (var client in projectDTO.ProjectClients)
+                {
+                    await _projectClientRepository.CreateAsync(new ProjectClient
+                    {
+                        ClientId = client.ClientId.Value,
+                        ProjectId = project.Id,
+                        ContactName = client.ContactName,
+                        ContactLastName = client.ContactLastName,
+                        ContactEmail = client.ContactEmail,
+                        ContactPhoneNumber = client.ContactPhoneNumber,
                     });
                 }
 
@@ -117,6 +130,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
 
             await UpsertPhases(projectDTO, existingProject);
             await UpsertProjectResearchers(projectDTO, existingProject);
+            await UpsertProjectClients(projectDTO, existingProject);
 
             _mapper.Map(projectDTO, existingProject);
             var updatedProject = await _projectRepository.UpdateAsync(existingProject);
@@ -172,7 +186,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
                 }
                 else
                 {
-                    await _projectResearcherRepository.DeleteAsync(existingProject.Id ,projectResearcher.ResearcherId);
+                    await _projectResearcherRepository.DeleteAsync(existingProject.Id, projectResearcher.ResearcherId);
                 }
             }
 
@@ -186,6 +200,40 @@ namespace ProjectManagmentApp.Infrastucture.Services
                     StartDate = projectResearcherDTO.StartDate,
                     EndDate = projectResearcherDTO.EndDate,
                     ResearcherRoleId = 1 // change this to use researcher.ResearcherRoleId
+                });
+            }
+        }
+        private async Task UpsertProjectClients(ProjectDTO projectDTO, Project? existingProject)
+        {
+            foreach (var projectClient in existingProject.ProjectClients)
+            {
+                var projectClientExist =
+                projectDTO.ProjectClients
+                    .Select(x => x.ClientId)
+                    .Contains(projectClient.ClientId);
+
+                if (projectClientExist)
+                {
+                    await _projectClientRepository.UpdateAsync(projectClient);
+
+                }
+                else
+                {
+                    await _projectClientRepository.DeleteAsync(existingProject.Id, projectClient.ClientId);
+                }
+            }
+
+
+            foreach (var projectClientDTO in projectDTO.ProjectClients.Where(x => x.ProjectId == 0))
+            {
+                await _projectClientRepository.CreateAsync(new ProjectClient 
+                {
+                    ClientId = projectClientDTO.ClientId.Value,
+                    ProjectId = existingProject.Id,
+                    ContactName = projectClientDTO.ContactName,
+                    ContactLastName = projectClientDTO.ContactLastName,
+                    ContactEmail = projectClientDTO.ContactEmail,
+                    ContactPhoneNumber = projectClientDTO.ContactPhoneNumber,
                 });
             }
         }
@@ -204,7 +252,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
 
             return await result.ToListAsync();
         }
-        public async Task<List<ProjectClientDTO>> GetClientsProjectAsync()
+        public async Task<List<ProjectClientDTO>> GetProjectClientsAsync()
         {
             var result = _projectClientRepository
                  .GetAllAsync()

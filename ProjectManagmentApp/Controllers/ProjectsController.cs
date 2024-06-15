@@ -98,7 +98,7 @@ namespace ProjectManagmentApp.API.Controllers
         [HttpGet("GetProjectClients")]
         public async Task<IActionResult> GetProjectClients()
         {
-            var result = await _projectService.GetClientsProjectAsync();
+            var result = await _projectService.GetProjectClientsAsync();
             return Ok(result);
         }
     }

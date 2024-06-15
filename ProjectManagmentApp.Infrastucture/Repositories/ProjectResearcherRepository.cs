@@ -18,6 +18,7 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
         {
             _context = applicationDbContext;
         }
+        
         public IQueryable<ProjectResearcher> GetAllAsync()
         {
             return _context.ProjectResearchers;

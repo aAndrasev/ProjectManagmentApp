@@ -10,5 +10,8 @@ namespace ProjectManagmentApp.Application.Interfaces.Repositories
     public interface IProjectClientRepository
     {
         IQueryable<ProjectClient> GetAllAsync();
+        Task<ProjectClient> CreateAsync(ProjectClient projectClient);
+        Task<ProjectClient> UpdateAsync(ProjectClient projectClient);
+        Task DeleteAsync(int projectId, int clientId);
     }
 }
