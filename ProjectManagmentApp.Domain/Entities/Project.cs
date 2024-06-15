@@ -23,9 +23,10 @@ namespace ProjectManagmentApp.Domain.Entities
         public DateTime PlannedEndDate { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
         public int ProjectStatusId { get; set; }
-        public virtual ICollection<Researcher> Researchers { get; set; }
-        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<ProjectResearcher> ProjectResearchers { get; set; }
+        public virtual ICollection<ProjectClient> ProjectClients { get; set; }
         public virtual ICollection<Phase> Phases { get; set; }
+
 
     }
 }

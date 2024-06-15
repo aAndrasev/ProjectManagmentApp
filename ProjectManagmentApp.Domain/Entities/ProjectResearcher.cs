@@ -2,9 +2,9 @@
 {
     public class ProjectResearcher
     {
-        public Project Projects { get; set; }
+        public Project Project { get; set; }
         public int ProjectId { get; set; }
-        public Researcher Researchers { get; set; }
+        public Researcher Researcher { get; set; }
         public int ResearcherId { get; set; }
         public ResearcherRole ResearcherRoles { get; set; }
         public int ResearcherRoleId { get; set; }

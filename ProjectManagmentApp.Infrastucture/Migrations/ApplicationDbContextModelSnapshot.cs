@@ -22,21 +22,6 @@ namespace ProjectManagmentApp.Infrastucture.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ClientProject", b =>
-                {
-                    b.Property<int>("ClientsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientsId", "ProjectsId");
-
-                    b.HasIndex("ProjectsId");
-
-                    b.ToTable("ClientProject");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -468,62 +453,62 @@ namespace ProjectManagmentApp.Infrastucture.Migrations
                         new
                         {
                             Id = 1,
-                            DateOfCreation = new DateTime(2024, 6, 5, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2098),
+                            DateOfCreation = new DateTime(2024, 6, 13, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5787),
                             Description = "Automate household tasks with IoT.",
-                            EndDate = new DateTime(2024, 6, 10, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2139),
+                            EndDate = new DateTime(2024, 6, 18, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5851),
                             Name = "SmartHome Automation",
-                            PlannedEndDate = new DateTime(2024, 7, 5, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2144),
-                            PlannedStartDate = new DateTime(2024, 6, 10, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2143),
+                            PlannedEndDate = new DateTime(2024, 7, 13, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5858),
+                            PlannedStartDate = new DateTime(2024, 6, 18, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5856),
                             ProjectStatusId = 1,
-                            StartDate = new DateTime(2024, 6, 7, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2135)
+                            StartDate = new DateTime(2024, 6, 15, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5845)
                         },
                         new
                         {
                             Id = 2,
-                            DateOfCreation = new DateTime(2024, 6, 5, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2177),
+                            DateOfCreation = new DateTime(2024, 6, 13, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5862),
                             Description = "Monitor fitness goals and progress.",
-                            EndDate = new DateTime(2024, 6, 20, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2179),
+                            EndDate = new DateTime(2024, 6, 28, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5864),
                             Name = "Health Tracker App",
-                            PlannedEndDate = new DateTime(2024, 7, 6, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2182),
-                            PlannedStartDate = new DateTime(2024, 6, 11, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2181),
+                            PlannedEndDate = new DateTime(2024, 7, 14, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5867),
+                            PlannedStartDate = new DateTime(2024, 6, 19, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5865),
                             ProjectStatusId = 2,
-                            StartDate = new DateTime(2024, 6, 8, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2178)
+                            StartDate = new DateTime(2024, 6, 16, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5863)
                         },
                         new
                         {
                             Id = 3,
-                            DateOfCreation = new DateTime(2024, 6, 5, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2184),
+                            DateOfCreation = new DateTime(2024, 6, 13, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5869),
                             Description = "Enhance user experience with new features.",
-                            EndDate = new DateTime(2024, 6, 8, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2186),
+                            EndDate = new DateTime(2024, 6, 16, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5871),
                             Name = "E-commerce Platform Upgrade",
-                            PlannedEndDate = new DateTime(2024, 7, 8, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2188),
-                            PlannedStartDate = new DateTime(2024, 6, 8, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2187),
+                            PlannedEndDate = new DateTime(2024, 7, 16, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5873),
+                            PlannedStartDate = new DateTime(2024, 6, 16, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5872),
                             ProjectStatusId = 2,
-                            StartDate = new DateTime(2024, 6, 7, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2185)
+                            StartDate = new DateTime(2024, 6, 15, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5870)
                         },
                         new
                         {
                             Id = 4,
-                            DateOfCreation = new DateTime(2024, 6, 5, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2190),
+                            DateOfCreation = new DateTime(2024, 6, 13, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5875),
                             Description = "Visualize and analyze large datasets.",
-                            EndDate = new DateTime(2024, 6, 19, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2192),
+                            EndDate = new DateTime(2024, 6, 27, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5878),
                             Name = "Data Analysis Tool",
-                            PlannedEndDate = new DateTime(2024, 7, 3, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2194),
-                            PlannedStartDate = new DateTime(2024, 6, 12, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2193),
+                            PlannedEndDate = new DateTime(2024, 7, 11, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5880),
+                            PlannedStartDate = new DateTime(2024, 6, 20, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5879),
                             ProjectStatusId = 3,
-                            StartDate = new DateTime(2024, 6, 9, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2191)
+                            StartDate = new DateTime(2024, 6, 17, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5876)
                         },
                         new
                         {
                             Id = 5,
-                            DateOfCreation = new DateTime(2024, 6, 5, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2196),
+                            DateOfCreation = new DateTime(2024, 6, 13, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5882),
                             Description = "Promote renewable energy solutions.",
-                            EndDate = new DateTime(2024, 6, 22, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2198),
+                            EndDate = new DateTime(2024, 6, 30, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5884),
                             Name = "Green Energy Initiative",
-                            PlannedEndDate = new DateTime(2024, 7, 4, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2200),
-                            PlannedStartDate = new DateTime(2024, 6, 9, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2199),
+                            PlannedEndDate = new DateTime(2024, 7, 12, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5887),
+                            PlannedStartDate = new DateTime(2024, 6, 17, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5886),
                             ProjectStatusId = 4,
-                            StartDate = new DateTime(2024, 6, 10, 9, 54, 18, 62, DateTimeKind.Local).AddTicks(2197)
+                            StartDate = new DateTime(2024, 6, 18, 13, 30, 27, 546, DateTimeKind.Local).AddTicks(5883)
                         });
                 });
 
@@ -757,36 +742,6 @@ namespace ProjectManagmentApp.Infrastucture.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProjectResearcher", b =>
-                {
-                    b.Property<int>("ProjectsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResearchersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProjectsId", "ResearchersId");
-
-                    b.HasIndex("ResearchersId");
-
-                    b.ToTable("ProjectResearcher");
-                });
-
-            modelBuilder.Entity("ClientProject", b =>
-                {
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Client", null)
-                        .WithMany()
-                        .HasForeignKey("ClientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -852,7 +807,7 @@ namespace ProjectManagmentApp.Infrastucture.Migrations
             modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.Phase", b =>
                 {
                     b.HasOne("ProjectManagmentApp.Domain.Entities.Project", "Project")
-                        .WithMany()
+                        .WithMany("Phases")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -873,33 +828,33 @@ namespace ProjectManagmentApp.Infrastucture.Migrations
 
             modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.ProjectClient", b =>
                 {
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Client", "Clients")
-                        .WithMany()
+                    b.HasOne("ProjectManagmentApp.Domain.Entities.Client", "Client")
+                        .WithMany("ProjectClients")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Project", "Projects")
-                        .WithMany()
+                    b.HasOne("ProjectManagmentApp.Domain.Entities.Project", "Project")
+                        .WithMany("ProjectClients")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Clients");
+                    b.Navigation("Client");
 
-                    b.Navigation("Projects");
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.ProjectResearcher", b =>
                 {
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Project", "Projects")
-                        .WithMany()
+                    b.HasOne("ProjectManagmentApp.Domain.Entities.Project", "Project")
+                        .WithMany("ProjectResearchers")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Researcher", "Researchers")
-                        .WithMany()
+                    b.HasOne("ProjectManagmentApp.Domain.Entities.Researcher", "Researcher")
+                        .WithMany("ProjectResearchers")
                         .HasForeignKey("ResearcherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -910,11 +865,11 @@ namespace ProjectManagmentApp.Infrastucture.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Projects");
+                    b.Navigation("Project");
+
+                    b.Navigation("Researcher");
 
                     b.Navigation("ResearcherRoles");
-
-                    b.Navigation("Researchers");
                 });
 
             modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.Researcher", b =>
@@ -928,24 +883,28 @@ namespace ProjectManagmentApp.Infrastucture.Migrations
                     b.Navigation("ResearcherRole");
                 });
 
-            modelBuilder.Entity("ProjectResearcher", b =>
+            modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.Client", b =>
                 {
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ProjectClients");
+                });
 
-                    b.HasOne("ProjectManagmentApp.Domain.Entities.Researcher", null)
-                        .WithMany()
-                        .HasForeignKey("ResearchersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.Project", b =>
+                {
+                    b.Navigation("Phases");
+
+                    b.Navigation("ProjectClients");
+
+                    b.Navigation("ProjectResearchers");
                 });
 
             modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.ProjectStatus", b =>
                 {
                     b.Navigation("Projects");
+                });
+
+            modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.Researcher", b =>
+                {
+                    b.Navigation("ProjectResearchers");
                 });
 
             modelBuilder.Entity("ProjectManagmentApp.Domain.Entities.ResearcherRole", b =>

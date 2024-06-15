@@ -27,6 +27,11 @@ namespace ProjectManagmentApp.Infrastucture.Mapping_profiles
             CreateMap<ProjectStatus, ProjectStatusDTO>();
             CreateMap<ResearcherRoleDTO, ResearcherRole>();
             CreateMap<ResearcherRole, ResearcherRoleDTO>();
+            CreateMap<ProjectClient, ProjectClientDTO>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Client.Name));
+            CreateMap<ProjectResearcher, ProjectResearcherDTO>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Researcher.Name))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.Researcher.LastName));
         }
     }
 }

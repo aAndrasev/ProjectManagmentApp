@@ -2,9 +2,9 @@
 {
     public class ProjectClient
     {
-        public Project Projects { get; set; }
+        public Project Project { get; set; }
         public int ProjectId { get; set; }
-        public Client Clients { get; set; }
+        public Client Client { get; set; }
         public int ClientId { get; set; }
         public string ContactName { get; set; }
         public string ContactLastName { get; set; }

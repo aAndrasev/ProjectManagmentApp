@@ -7,6 +7,7 @@ using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Application.Interfaces.Repositories;
 using ProjectManagmentApp.Domain.Entities;
+using ProjectManagmentApp.Infrastucture.Repositories;
 
 
 namespace ProjectManagmentApp.Infrastucture.Services
@@ -15,14 +16,17 @@ namespace ProjectManagmentApp.Infrastucture.Services
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IPhaseRepository _phaseRepository;
+        private readonly IProjectResearcherRepository _projectResearcherRepository;
+        private readonly IProjectClientRepository _projectClientRepository;
         private readonly IMapper _mapper;
       
-        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IPhaseRepository phaseRepository)
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IPhaseRepository phaseRepository, IProjectResearcherRepository projectResearcherRepository, IProjectClientRepository projectClientRepository)
         {
             _projectRepository = projectRepository;
             _mapper = mapper;
             _phaseRepository = phaseRepository;
-            
+            _projectResearcherRepository = projectResearcherRepository;
+            _projectClientRepository = projectClientRepository;
         }
 
         //***** CRUD METHODS *****//
@@ -83,11 +87,22 @@ namespace ProjectManagmentApp.Infrastucture.Services
                     });
                 }
 
+                foreach (var researcher in projectDTO.ProjectResearchers)
+                {
+                    await _projectResearcherRepository.CreateAsync(new  ProjectResearcher
+                    {
+                      ResearcherId = researcher.ResearcherId.Value,
+                      ProjectId = project.Id,
+                      StartDate = researcher.StartDate,
+                      EndDate = researcher.EndDate,
+                      ResearcherRoleId = 1 // change this to use researcher.ResearcherRoleId
+                    });
+                }
+
                 return _mapper.Map<ProjectDTO>(createdProject);
             }
             catch (Exception ex)
             {
-                // Optionally, you can throw a custom exception or rethrow the original exception
                 throw new ApplicationException("An error occurred while creating the project.", ex);
             }
         }
@@ -100,6 +115,17 @@ namespace ProjectManagmentApp.Infrastucture.Services
                 return null;
             }
 
+            await UpsertPhases(projectDTO, existingProject);
+            await UpsertProjectResearchers(projectDTO, existingProject);
+
+            _mapper.Map(projectDTO, existingProject);
+            var updatedProject = await _projectRepository.UpdateAsync(existingProject);
+
+            return _mapper.Map<ProjectDTO>(updatedProject);
+        }
+
+        private async Task UpsertPhases(ProjectDTO projectDTO, Project? existingProject)
+        {
             foreach (var phase in existingProject.Phases.Where(x => x.Id != 0))
             {
                 var phaseExist =
@@ -110,7 +136,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
                 if (phaseExist)
                 {
                     await _phaseRepository.UpdateAsync(phase);
-                    
+
                 }
                 else
                 {
@@ -118,7 +144,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
                 }
             }
 
-         
+
             foreach (var phase in projectDTO.Phases.Where(x => x.Id == 0))
             {
                 await _phaseRepository.CreateAsync(new Phase
@@ -128,11 +154,40 @@ namespace ProjectManagmentApp.Infrastucture.Services
                     ProjectId = existingProject.Id
                 });
             }
+        }
 
-            _mapper.Map(projectDTO, existingProject);
-            var updatedProject = await _projectRepository.UpdateAsync(existingProject);
+        private async Task UpsertProjectResearchers(ProjectDTO projectDTO, Project? existingProject)
+        {
+            foreach (var projectResearcher in existingProject.ProjectResearchers)
+            {
+                var projectResearcherExist =
+                projectDTO.ProjectResearchers
+                    .Select(x => x.ResearcherId)
+                    .Contains(projectResearcher.ResearcherId);
 
-            return _mapper.Map<ProjectDTO>(updatedProject);
+                if (projectResearcherExist)
+                {
+                    await _projectResearcherRepository.UpdateAsync(projectResearcher);
+
+                }
+                else
+                {
+                    await _projectResearcherRepository.DeleteAsync(existingProject.Id ,projectResearcher.ResearcherId);
+                }
+            }
+
+
+            foreach (var projectResearcherDTO in projectDTO.ProjectResearchers.Where(x => x.ProjectId == 0))
+            {
+                await _projectResearcherRepository.CreateAsync(new ProjectResearcher
+                {
+                    ResearcherId = projectResearcherDTO.ResearcherId.Value,
+                    ProjectId = existingProject.Id,
+                    StartDate = projectResearcherDTO.StartDate,
+                    EndDate = projectResearcherDTO.EndDate,
+                    ResearcherRoleId = 1 // change this to use researcher.ResearcherRoleId
+                });
+            }
         }
 
         public async Task DeleteProjectAsync(int id)
@@ -141,6 +196,21 @@ namespace ProjectManagmentApp.Infrastucture.Services
         }
         //**********//
 
+        public async Task<List<ProjectResearcherDTO>> GetProjectResearchersAsync()
+        {
+            var result = _projectResearcherRepository
+                 .GetAllAsync()
+                 .ProjectTo<ProjectResearcherDTO>(_mapper.ConfigurationProvider);
 
+            return await result.ToListAsync();
+        }
+        public async Task<List<ProjectClientDTO>> GetClientsProjectAsync()
+        {
+            var result = _projectClientRepository
+                 .GetAllAsync()
+                 .ProjectTo<ProjectClientDTO>(_mapper.ConfigurationProvider);
+
+            return await result.ToListAsync();
+        }
     }
 }

@@ -3,7 +3,7 @@ using ProjectManagmentApp.Application.Dtos;
 using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 
-namespace ProjectManagmentApp.API.Controllers
+namespace ProjectManagmentApp.API.Properties
 {
     [Route("api/[controller]")]
     [ApiController]

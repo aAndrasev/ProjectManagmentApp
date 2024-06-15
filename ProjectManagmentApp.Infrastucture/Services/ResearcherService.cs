@@ -7,6 +7,7 @@ using ProjectManagmentApp.Application.Dtos.Requests;
 using ProjectManagmentApp.Application.Interfaces;
 using ProjectManagmentApp.Application.Interfaces.Repositories;
 using ProjectManagmentApp.Domain.Entities;
+using ProjectManagmentApp.Infrastucture.Repositories;
 
 namespace ProjectManagmentApp.Infrastucture.Services
 {
@@ -14,11 +15,12 @@ namespace ProjectManagmentApp.Infrastucture.Services
     {
         private readonly IResearcherRepository _researcherRepository;
         private readonly IMapper _mapper;
-
-        public ResearcherService(IResearcherRepository researcherRepository, IMapper mapper)
+        private readonly IProjectResearcherRepository _projectResearcherRepository;
+        public ResearcherService(IResearcherRepository researcherRepository, IMapper mapper, IProjectResearcherRepository projectResearcherRepository)
         {
             _researcherRepository = researcherRepository;
             _mapper = mapper;
+            _projectResearcherRepository = projectResearcherRepository;
         }
 
         //***** CRUD METHODS *****//
@@ -39,7 +41,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
 
             return await result.ToListAsync();
         }
-
+        
         public async Task<ResearcherDTO> GetResearcherAsync(int id)
         {
             var researcher = await _researcherRepository.GetByIdAsync(id);

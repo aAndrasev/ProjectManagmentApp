@@ -73,6 +73,8 @@ builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
 builder.Services.AddScoped<IProjectStatusService, ProjectStatusService>();
 builder.Services.AddScoped<IResearcherRoleRepository, ResearcherRoleRepository>();
 builder.Services.AddScoped<IResearcherRoleService, ResearcherRoleService>();
+builder.Services.AddScoped<IProjectResearcherRepository, ProjectResearcherRepository>();
+builder.Services.AddScoped<IProjectClientRepository, ProjectClientRepository>();
 
 
 var app = builder.Build();

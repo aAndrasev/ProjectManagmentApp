@@ -10,5 +10,7 @@ namespace ProjectManagmentApp.Application.Interfaces
         Task<ProjectDTO> CreateProjectAsync(ProjectDTO projectDTO);
         Task<ProjectDTO> UpdateProjectAsync(int id, ProjectDTO projectDTO);
         Task DeleteProjectAsync(int id);
+        Task<List<ProjectResearcherDTO>> GetProjectResearchersAsync();
+        Task<List<ProjectClientDTO>> GetClientsProjectAsync();
     }
 }

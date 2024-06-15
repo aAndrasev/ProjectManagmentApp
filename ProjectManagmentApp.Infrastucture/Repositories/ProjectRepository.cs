@@ -25,6 +25,8 @@ namespace ProjectManagmentApp.Infrastucture.Repositories
             return await _context.Projects
                 .Include(r => r.ProjectStatus)
                 .Include(r => r.Phases)
+                .Include(r => r.ProjectResearchers)
+                .Include(r => r.ProjectClients)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 

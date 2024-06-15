@@ -13,6 +13,6 @@ namespace ProjectManagmentApp.Domain.Entities
         public int? PhoneNumber { get; set; }
         public int ResearcherRoleId { get; set; }
         public ResearcherRole ResearcherRole { get; set; }
-        public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<ProjectResearcher> ProjectResearchers { get; set; }
     }
 }

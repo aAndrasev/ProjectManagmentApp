@@ -76,7 +76,6 @@ namespace ProjectManagmentApp.Infrastucture
             new ProjectStatus() { Id = 4, Name = "Completed" }
             );
 
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ProjectClient>()
                         .HasKey(x => new { x.ProjectId, x.ClientId });
             modelBuilder.Entity<ProjectResearcher>()
@@ -87,6 +86,8 @@ namespace ProjectManagmentApp.Infrastucture
             .WithMany(rr => rr.Researchers)
             .HasForeignKey(r => r.ResearcherRoleId)
             .OnDelete(DeleteBehavior.Restrict);
+            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

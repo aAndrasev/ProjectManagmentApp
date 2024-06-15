@@ -87,6 +87,20 @@ namespace ProjectManagmentApp.API.Controllers
             var result = await _projectStatusService.GetProjectStatusesAsync();
             return Ok(result);
         }
+
+        [HttpGet("GetProjectResearchers")]
+        public async Task<IActionResult> GetProjectResearchers()
+        {
+            var result = await _projectService.GetProjectResearchersAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("GetProjectClients")]
+        public async Task<IActionResult> GetProjectClients()
+        {
+            var result = await _projectService.GetClientsProjectAsync();
+            return Ok(result);
+        }
     }
 }
 

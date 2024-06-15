@@ -12,12 +12,14 @@ namespace ProjectManagmentApp.Infrastucture.Services
     public class ClientService : IClientService
     {
         private readonly IClientRepository _clientRepository;
+        private readonly IProjectClientRepository _projectClientRepository;
         private readonly IMapper _mapper;
 
-        public ClientService(IClientRepository clientRepository, IMapper mapper)
+        public ClientService(IClientRepository clientRepository, IMapper mapper, IProjectClientRepository projectClientRepository)
         {
             _clientRepository = clientRepository;
             _mapper = mapper;
+            _projectClientRepository = projectClientRepository;
         }
 
         //***** CRUD METHODS *****//
@@ -38,6 +40,8 @@ namespace ProjectManagmentApp.Infrastucture.Services
 
             return await result.ToListAsync();
         }
+
+        
 
         public async Task<ClientDTO> GetClientAsync(int id)
         {

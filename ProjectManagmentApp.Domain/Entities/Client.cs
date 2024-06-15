@@ -10,6 +10,6 @@ namespace ProjectManagmentApp.Domain.Entities
         public string Place { get; set; }
         public string Email { get; set; }
         public int? PhoneNumber { get; set; }
-        public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<ProjectClient> ProjectClients { get; set; }
     }
 }

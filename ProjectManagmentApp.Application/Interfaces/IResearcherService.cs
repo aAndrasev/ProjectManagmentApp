@@ -10,5 +10,6 @@ namespace ProjectManagmentApp.Application.Interfaces
         Task<ResearcherDTO> CreateResearcherAsync(ResearcherDTO researcherDTO);
         Task<ResearcherDTO> UpdateResearcherAsync(int id, ResearcherDTO researcherDTO);
         Task<ResearcherDTO> DeleteResearcherAsync(int id);
+        
     }
 }

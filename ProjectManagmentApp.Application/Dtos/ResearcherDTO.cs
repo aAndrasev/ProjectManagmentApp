@@ -10,6 +10,7 @@
         public int? PhoneNumber { get; set; }
         public int ResearcherRoleId { get; set; }
         public string? ResearcherRoleName { get; set; }
+       
 
     }
 }
