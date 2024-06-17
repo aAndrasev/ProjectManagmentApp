@@ -27,8 +27,16 @@ namespace ProjectManagmentApp.API.Controllers
         [HttpPost("GetAll")]
         public async Task<IActionResult> GetProjects(GetProjectsRequest request)
             {
-            var result = await _projectService.GetProjectsAsync(request);
-            return Ok(result);
+            try
+            {
+                var result = await _projectService.GetProjectsAsync(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet("{id}")]

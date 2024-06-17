@@ -32,20 +32,30 @@ namespace ProjectManagmentApp.Infrastucture.Services
         //***** CRUD METHODS *****//
         public async Task<List<ProjectDTO>> GetProjectsAsync(GetProjectsRequest request)
         {
-            var result = _projectRepository
-                 .GetAllAsync()
-                 .ProjectTo<ProjectDTO>(_mapper.ConfigurationProvider);
-
-            if (request.ProjectStatusId.HasValue && request.ProjectStatusId != 0)
+            try
             {
-                result = result.Where(x => x.ProjectStatusId == request.ProjectStatusId);
-            }
-            if (!string.IsNullOrEmpty(request.SearchTerm))
-            {
-                result = result.Where(x => x.Name.Contains(request.SearchTerm));
-            }
+               
 
-            return await result.ToListAsync();
+                var result = _projectRepository
+                     .GetAllAsync()
+                     .ProjectTo<ProjectDTO>(_mapper.ConfigurationProvider);
+
+                if (request.ProjectStatusId.HasValue && request.ProjectStatusId != 0)
+                {
+                    result = result.Where(x => x.ProjectStatusId == request.ProjectStatusId);
+                }
+                if (!string.IsNullOrEmpty(request.SearchTerm))
+                {
+                    result = result.Where(x => x.Name.Contains(request.SearchTerm));
+                }
+
+                return await result.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+               
+                throw;
+            }
         }
 
         public async Task<ProjectDTO> GetProjectAsync(int id)
@@ -233,7 +243,7 @@ namespace ProjectManagmentApp.Infrastucture.Services
                     ContactName = projectClientDTO.ContactName,
                     ContactLastName = projectClientDTO.ContactLastName,
                     ContactEmail = projectClientDTO.ContactEmail,
-                    ContactPhoneNumber = projectClientDTO.ContactPhoneNumber,
+                    ContactPhoneNumber = projectClientDTO.ContactPhoneNumber.Value,
                 });
             }
         }
